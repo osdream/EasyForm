@@ -15,13 +15,176 @@
  */
 
 define(function(require) {
+    var u = require('underscore');
+    var lib = require('./lib');
+    var IElement = require('./element/IElement');
+    var BaseElement = require('./element/BaseElement');
+    var IControl = require('./control/IControl');
+    var ElementType = require('./ElementType');
+    var elementMap = require('./elementMap');
+    var ControlType = require('./ControlType');
+    var controlMap = require('./controlMap');
+
     /**
      * EasyForm 构造函数
+     * @param {Array.<Object>} schema 表单SCHEMA
      * @constructor
      */
-    function EasyForm() {
-        // TODO
+    function EasyForm(schema) {
+        /**
+         * @type {Array.<Object>}
+         */
+        this.schema = schema;
+
+        /**
+         * @type {HTMLElement}
+         */
+        this.main = null;
+
+        /**
+         * @type {IElement}
+         */
+        this.root = null;
+
+        // 初始化
+        this.init();
     }
+
+    /**
+     * Element接口类
+     * @type {Function}
+     */
+    EasyForm.IElement = IElement;
+
+    /**
+     * Element接口类
+     * @type {Function}
+     */
+    EasyForm.IElement = IElement;
+
+    /**
+     * Control接口类
+     * @type {Function}
+     */
+    EasyForm.IControl = IControl;
+
+    /**
+     * 元素类型
+     * @type {Object}
+     */
+    EasyForm.ElementType = ElementType;
+
+    /**
+     * 元素集合
+     * @type {Object.<ElementType, Function>}
+     */
+    EasyForm.elementMap = elementMap;
+
+    /**
+     * 注册元素类
+     * @param {ElementType} elementType 元素类型
+     * @param {Function} Element 实现了IElement接口的表单项渲染器类
+     * @static
+     */
+    EasyForm.registerElement = function(elementType, Element) {
+        if (!ElementType[elementType]) {
+            ElementType[elementType] = elementType;
+        }
+        EasyForm.elementMap[elementType] = Element;
+    };
+
+    /**
+     * 控件类型
+     * @type {Object}
+     */
+    EasyForm.ControlType = ControlType;
+
+    /**
+     * 控件集合
+     * @type {Object.<ControlType, Function>}
+     */
+    EasyForm.controlMap = controlMap;
+
+    /**
+     * 注册控件类
+     * @param {ControlType} controlType 控件类型
+     * @param {Function} Control 实现了IControl接口的表单控件类
+     * @static
+     */
+    EasyForm.registerControl = function(controlType, Control) {
+        if (!ControlType[controlType]) {
+            ControlType[controlType] = controlType;
+        }
+        EasyForm.controlMap[controlType] = Control;
+    };
+
+    /**
+     * EasyForm 初始化
+     */
+    EasyForm.prototype.init = function() {
+        var schema = this.schema;
+
+        this.root = this.constructElementTree(schema);
+    };
+
+    /**
+     * 构建Element树
+     * @param {Array.<Object>} schema 表单SCHEMA
+     * @param {IElement=} opt_parent 父Element
+     */
+    EasyForm.prototype.constructElementTree = function(schema, opt_parent) {
+        var itemSchema = schema;
+        if (u.isArray(schema)) {
+            itemSchema = {
+                'name': '',
+                'displayName': '',
+                'datatype': ElementType.OBJECT,
+                'items': schema
+            };
+        }
+        var Constructor = EasyForm.elementMap[ElementType.OBJECT];
+        return new Constructor(itemSchema);
+    };
+
+    /**
+     * 渲染表单
+     * @param {HTMLElement} main 表单容器元素
+     */
+    EasyForm.prototype.render = function(main) {
+        // 先销毁之前的表单
+        if (this.main) {
+            this.dispose();
+        }
+        this.main = main;
+        lib.addClass(main, 'ef-form');
+
+        this.root.render(main);
+    };
+
+    /**
+     * 销毁表单
+     */
+    EasyForm.prototype.dispose = function() {
+        if (!this.main) {
+            return;
+        }
+
+        this.main.innerHTML = '';
+        lib.removeClass(this.main, 'ef-form');
+
+        this.main = null;
+        // TODO
+    };
+
+    // 注册预定义元素
+    var StringElement = require('./element/StringElement');
+    var ObjectElement = require('./element/ObjectElement');
+    EasyForm.registerElement('STRING', StringElement);
+    EasyForm.registerElement('OBJECT', ObjectElement);
+
+    // 注册预定义控件
+    var TextBox = require('./control/TextBox');
+    EasyForm.registerControl('TEXTBOX', TextBox);
 
     return EasyForm;
 });
