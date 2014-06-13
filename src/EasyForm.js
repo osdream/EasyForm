@@ -17,6 +17,7 @@
 define(function(require) {
     var u = require('underscore');
     var lib = require('./lib');
+    var util = require('./util');
     var IElement = require('./element/IElement');
     var BaseElement = require('./element/BaseElement');
     var IControl = require('./control/IControl');
@@ -24,6 +25,7 @@ define(function(require) {
     var elementMap = require('./elementMap');
     var ControlType = require('./ControlType');
     var controlMap = require('./controlMap');
+    var styleCreator = require('./styleCreator');
 
     /**
      * EasyForm 构造函数
@@ -147,6 +149,22 @@ define(function(require) {
     };
 
     /**
+     * 生成ID
+     * @param {string=} opt_part id后缀
+     * @return {string}
+     */
+    EasyForm.prototype.getId = function(opt_part) {
+        return opt_part ? (this.id + '-' + opt_part) : this.id;
+    };
+
+    /**
+     * 创建样式标签
+     */
+    EasyForm.prototype.createStyles = function() {
+        styleCreator.create(this.getId('style'), this.main);
+    };
+
+    /**
      * 渲染表单
      * @param {HTMLElement} main 表单容器元素
      */
@@ -156,9 +174,15 @@ define(function(require) {
             this.dispose();
         }
         this.main = main;
-        lib.addClass(main, 'ef-form');
 
+        this.id = this.main.id || util.uuid();
+        this.main.id = this.id;
+
+        lib.addClass(main, 'ef-form');
         this.root.render(main);
+
+        // 如果是build版本，css是存放在JS中，需要动态创建
+        this.createStyles();
     };
 
     /**

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>EasyForm DEMO</title>
+<script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/1-6-10/esl.source.js"></script>
+<style>
+body {
+    padding:0;
+    margin:0;
+    font-family:Arial,Liberation Sans,DejaVu Sans,sans-serif;
+}
+</style>
+<link rel="stylesheet" href="src/css/main.less" />
+</head>
+<body>
+<div id="canvas"></div>
+<script type="text/javascript">
+require.config({
+    'baseUrl': 'src',
+    'paths': {},
+    'packages': [
+        {
+            "name": "underscore",
+            "location": "../dep/underscore/1.5.2/src",
+            "main": "underscore"
+        },
+        {
+            "name": "mini-event",
+            "location": "../dep/mini-event/1.0.0/src",
+            "main": "main"
+        },
+        {
+            "name": "esui",
+            "location": "../dep/esui/3.1.0-beta.3/src",
+            "main": "main"
+        },
+        {
+            "name": "moment",
+            "location": "../dep/moment/2.0.1/src",
+            "main": "moment"
+        },
+        {
+            "name": "etpl",
+            "location": "../dep/etpl/2.1.0/src",
+            "main": "main"
+        },
+        {
+            "name": "est",
+            "location": "../dep/est/1.2.1/src"
+        }
+    ]
+});
+</script>
+<script>
+require(['EasyForm'] , function(EasyForm) {
+    var schema = [
+        {
+            "name": "logo",
+            "displayName": "LOGO",
+            "datatype": "OBJECT",
+            "rules": {},
+            "items": [
+                {
+                    "name": "name",
+                    "displayName": "姓名",
+                    "tip": "最多10个字节（5个汉字）",
+                    "datatype": "STRING",
+                    "rules": {
+                        "required": true,
+                        "maxByteLength": 10
+                    }
+                },
+                {
+                    "name": "addr",
+                    "displayName": "住址",
+                    "tip": "最多100个字节（50个汉字）",
+                    "datatype": "STRING",
+                    "rules": {
+                        "required": true,
+                        "maxByteLength": 100
+                    }
+                }
+            ]
+        }
+    ];
+    var easyform = new EasyForm(schema);
+
+    easyform.render(document.getElementById('canvas'));
+});
+</script>
+</body>
+</html>

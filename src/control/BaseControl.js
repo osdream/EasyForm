@@ -19,7 +19,12 @@ define(function(require) {
     var lib = require('../lib');
     var IControl = require('./IControl');
 
-    // TODO: esui config
+    var esui = require('esui/main');
+    esui.config({
+        uiClassPrefix: 'ef-ui',
+        skinClassPrefix: 'ef-skin',
+        stateClassPrefix: 'ef-state'
+    });
 
     /**
      * Control 基类：对esui控件做包装
@@ -92,9 +97,14 @@ define(function(require) {
     /**
      * 设置控件值
      */
-    StringElement.prototype.setValue = function(value) {
+    BaseControl.prototype.setValue = function(value) {
         this.control.setValue(value);
     };
+
+    /**
+     * 控件值变化事件HOOK
+     */
+    BaseControl.prototype.onchange = function() {};
 
     return BaseControl;
 });

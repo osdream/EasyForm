@@ -21,7 +21,7 @@ define(function(require) {
 
     var IElement = require('./IElement');
     var elementMap = require('../elementMap');
-    var IControl = require('./IControl');
+    var IControl = require('../control/IControl');
     var controlMap = require('../controlMap');
 
     /**
@@ -175,7 +175,7 @@ define(function(require) {
     /**
      * 设置元素值
      */
-    StringElement.prototype.setValue = function(value) {
+    BaseElement.prototype.setValue = function(value) {
         this.value = value;
     };
 

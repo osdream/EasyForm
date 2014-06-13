@@ -7,23 +7,23 @@
  
  
 /*
- * path:    src/elementMap.js
- * desc:    元素集合
+ * path:    src/css/main.less
+ * desc:    
  * author:  songao(songao@baidu.com)
  * version: $Revision$
- * date:    $Date: 2014/04/10 10:31:30$
+ * date:    $Date: 2014/06/11 18:27:23$
  */
 
-define(function(require) {
-    var ElementType = require('./ElementType');
+@import "../../dep/esui/3.1.0-beta.3/src/css/variable.less";
+@import "../../dep/esui/3.1.0-beta.3/src/css/main.less";
+@import "../../dep/est/1.2.1/src/all.less";
 
-    /**
-     * @type {Object.<ElementType, Function>}
-     */
-    var elementMap = {};
+// global
+@import "base.less";
+@import "ui.less";
 
-    return elementMap;
-});
+
+
 
 
 

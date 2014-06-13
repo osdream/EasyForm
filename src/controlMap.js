@@ -14,7 +14,7 @@
  * date:    $Date: 2014/04/10 10:29:04$
  */
 
-define(function() {
+define(function(require) {
     var ControlType = require('./ControlType');
 
     /**
