@@ -1,27 +1,43 @@
 {
-  "name": "EasyForm",
-  "version": "0.0.0",
-  "description": "a easy way to create forms",
-  "main": "EasyForm.js",
-  "directories": {
-    "doc": "doc",
-    "test": "test"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/osdream/EasyForm.git"
-  },
-  "keywords": [
-    "form",
-    "editor"
-  ],
-  "author": "osdream.song@gmail.com",
-  "license": "BSD-2-Clause",
-  "bugs": {
-    "url": "https://github.com/osdream/EasyForm/issues"
-  },
-  "homepage": "https://github.com/osdream/EasyForm"
+    "name": "EasyForm",
+    "version": "0.0.1",
+    "description": "a easy way to create forms",
+    "main": "EasyForm.js",
+    "directories": {
+        "doc": "doc",
+        "test": "test"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/osdream/EasyForm.git"
+    },
+    "keywords": [
+        "form",
+        "editor"
+    ],
+    "author": "osdream.song@gmail.com",
+    "license": "BSD-2-Clause",
+    "bugs": {
+        "url": "https://github.com/osdream/EasyForm/issues"
+    },
+    "homepage": "https://github.com/osdream/EasyForm",
+    "dependencies": {
+        "underscore": "1.x",
+        "mini-event": "1.x",
+        "esui": "3.x",
+        "moment": "2.x",
+        "etpl": "2.x",
+        "est": "1.x"
+    },
+    "edp": {
+        "wwwroot": "/",
+        "depDir": "dep",
+        "srcDir": "src",
+        "loaderAutoConfig": "js,htm,html,tpl,vm,phtml",
+        "loaderUrl": "http://s1.bdstatic.com/r/www/cache/ecom/esl/1-8-0/esl.js",
+        "dependencies": {}
+    }
 }

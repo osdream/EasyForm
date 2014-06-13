@@ -35,11 +35,16 @@ define(function(require) {
      */
     StringElement.prototype.render = function() {
         BaseElement.prototype.render.apply(this, arguments);
+        lib.addClass(this.main, 'ef-item-string');
 
-        this.main.innerHTML = '';// '<input type="text" id="' + this.getId() + '" />';;
+        this.main.innerHTML = '<div class="ef-item-key">' + u.escape(this.schema['displayName']) + '</div>';
+        var container = document.createElement('div');
+        lib.addClass(container, 'ef-item-value');
+        this.main.appendChild(container);
+
         var Constructor = this.getControlClass('TEXTBOX');
         this.control = new Constructor({
-            container: this.main,
+            container: container,
             multiline: !!this.schema['multiline'],
             placeholder: this.schema['tip']
         });
@@ -50,7 +55,6 @@ define(function(require) {
      * 获取元素值
      */
     StringElement.prototype.getValue = function() {
-        // var value = lib.trim(lib.g(this.getId()).value);
         return this.control.getValue();
     };
 
@@ -58,7 +62,6 @@ define(function(require) {
      * 设置元素值
      */
     StringElement.prototype.setValue = function(value) {
-        // lib.g(this.getId()).value = value;
         this.control.setValue(value);
     };
 

@@ -35,6 +35,7 @@ define(function(require) {
      */
     ObjectElement.prototype.render = function() {
         BaseElement.prototype.render.apply(this, arguments);
+        lib.addClass(this.main, 'ef-item-object');
 
         var schema = this.schema;
         var tipHtml = schema.tip
@@ -50,7 +51,7 @@ define(function(require) {
                 item.datatype = "STRING";
             }
             var container = document.createElement('div');
-            lib.addClasses(container, ['ef-item', 'ef-item-object']);
+            lib.addClass(container, 'ef-item');
             this.main.appendChild(container);
 
             var Constructor = this.getElementClass(item.datatype);

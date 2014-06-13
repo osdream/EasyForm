@@ -7,22 +7,27 @@
  
  
 /*
- * path:    src/elementMap.js
- * desc:    元素集合
+ * path:    src/util.js
+ * desc:    
  * author:  songao(songao@baidu.com)
  * version: $Revision$
- * date:    $Date: 2014/04/10 10:31:30$
+ * date:    $Date: 2014/06/13 13:29:11$
  */
 
-define(function(require) {
-    var ElementType = require('./ElementType');
+define(function() {
+    var util = {};
 
     /**
-     * @type {Object.<ElementType, Function>}
+     * 创建唯一ID
+     * @return {string}
      */
-    var elementMap = {};
+    util.uuid = function() {
+        var uuid = Math.floor(Math.random() * 2147483648).toString(36);
 
-    return elementMap;
+        return uuid;
+    };
+
+    return util;
 });
 
 

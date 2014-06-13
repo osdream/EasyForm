@@ -1,0 +1,15 @@
+{
+    "wwwroot": "/",
+    "depDir": "dep",
+    "srcDir": "src",
+    "loaderAutoConfig": "js,htm,html,tpl,vm,phtml",
+    "loaderUrl": "http://s1.bdstatic.com/r/www/cache/ecom/esl/1-6-6/esl.js",
+    "dependencies": {
+        "mini-event": "1.x",
+        "etpl": "2.x",
+        "esui": "3.x",
+        "underscore": "1.x",
+        "moment": "2.x",
+        "est": "1.x"
+    }
+}
