@@ -55,9 +55,26 @@ A simple way to create forms.
         });
     </script>
 
+## dev
+
+    1. fork
+    2. git clone
+    3. set up edp
+
+        npm install -g edp
+        edp update
+
+    4. write code
+    5. run edp webserver to test
+
+        edp webserver start
+        # check http://localhost:8810/index.html
+
+    6. pull request
+
 ## build
 
     npm install -g edp
     edp build -f --stage=release
 
-dist/EasyForm-{version}.js 就是最终打包后的JS，引入到项目即可
+`dist/EasyForm-{version}.js` 就是最终打包后的JS，引入到项目即可
