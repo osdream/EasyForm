@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>EasyForm DEMO - Jiejin</title>
+<script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/1-8-4/esl.js"></script>
+<style>
+body {
+    padding:0;
+    margin:0;
+    font-family:Arial,Liberation Sans,DejaVu Sans,sans-serif;
+}
+</style>
+<link rel="stylesheet" href="src/css/main.less" />
+</head>
+<body>
+<div id="canvas"></div>
+<script type="text/javascript">
+require.config({
+    'baseUrl': 'src',
+    'paths': {},
+    'packages': [
+        {
+            'name': 'underscore',
+            'location': '../dep/underscore/1.5.2/src',
+            'main': 'underscore'
+        },
+        {
+            'name': 'mini-event',
+            'location': '../dep/mini-event/1.0.2/src',
+            'main': 'main'
+        },
+        {
+            'name': 'esui',
+            'location': '../dep/esui/3.1.0-beta.3/src',
+            'main': 'main'
+        },
+        {
+            'name': 'moment',
+            'location': '../dep/moment/2.7.0/src',
+            'main': 'moment'
+        },
+        {
+            'name': 'etpl',
+            'location': '../dep/etpl/3.0.0/src',
+            'main': 'main'
+        },
+        {
+            'name': 'est',
+            'location': '../dep/est/1.3.0/src'
+        }
+    ]
+});
+</script>
+<script>
+require(['EasyForm'] , function(EasyForm) {
+    var schema = [
+        {
+            "name": "name",
+            "displayName": "姓名",
+            "tip": "您的姓名",
+            "datatype": "STRING",
+            "rules": {
+                "required": true,
+                "maxByteLength": 20
+            }
+        },
+        {
+            "name": "gender",
+            "displayName": "性别",
+            "datatype": "ENUM",
+            "enumValues": [
+                {
+                    "value": "0",
+                    "displayValue": "性别"
+                },
+                {
+                    "value": "1",
+                    "displayValue": "男"
+                },
+                {
+                    "value": "2",
+                    "displayValue": "女"
+                }
+            ],
+            "rules": {
+                "required": true
+            }
+        },
+        {
+            "name": "city",
+            "displayName": "城市",
+            "datatype": "ENUM",
+            "enumValues": [
+                {"value": "-1","displayValue": "城市"},
+                {"displayValue":"台北市","value":"7101"},
+                {"displayValue":"高雄市","value":"7102"},
+                {"displayValue":"基隆市","value":"7103"},
+                {"displayValue":"台中市","value":"7104"},
+                {"displayValue":"台南市","value":"7105"},
+                {"displayValue":"新竹市","value":"7106"},
+                {"displayValue":"嘉义市","value":"7107"},
+                {"displayValue":"济源市","value":"4190"}
+            ],
+            "rules": {
+                "required": true
+            }
+        },
+        {
+            "name": "phone",
+            "displayName": "手机号码",
+            "tip": "您的手机号码",
+            "datatype": "STRING",
+            "rules": {
+                "required": true
+            }
+        },
+        {
+            "name": "email",
+            "displayName": "电子邮箱",
+            "tip": "您的电子邮箱",
+            "datatype": "STRING",
+            "rules": {
+                "required": true
+            }
+        },
+        {
+            "name": "chexin",
+            "displayName": "试驾车型",
+            "datatype": "STRING",
+            "defaultValue": "DS 6",
+            "rules": {
+                "required": true
+            },
+            "extraAttr": {
+                "readOnly": true
+            }
+        },
+    ];
+    var easyform = new EasyForm(schema);
+    window.eForm = easyform;
+
+    easyform.render(document.getElementById('canvas'));
+});
+</script>
+</body>
+</html>

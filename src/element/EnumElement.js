@@ -7,11 +7,11 @@
 
 
 /*
- * path:    src/element/StringElement.js
- * desc:    文本框渲染类
- * author:  songao(songao@baidu.com)
+ * path:    src/element/EnumElement.js
+ * desc:    下拉框渲染类
+ * author:  Kyle He(hekai02@baidu.com)
  * version: $Revision$
- * date:    $Date: 2014/04/09 19:12:53$
+ * date:    $Date: 2014/09/22 19:27:13$
  */
 
 define(function(require) {
@@ -20,12 +20,12 @@ define(function(require) {
     var BaseElement = require('./BaseElement');
 
     /**
-     * 文本框渲染类
+     * 下拉框渲染类
      *
      * @extends {BaseElement}
      * @constructor
      */
-    function StringElement() {
+    function EnumElement() {
         BaseElement.apply(this, arguments);
     }
 
@@ -33,51 +33,41 @@ define(function(require) {
      * 渲染函数
      * @override
      */
-    StringElement.prototype.render = function() {
+    EnumElement.prototype.render = function() {
         BaseElement.prototype.render.apply(this, arguments);
-        lib.addClass(this.main, 'ef-item-string');
+        lib.addClass(this.main, 'ef-item-enum');
 
         this.main.innerHTML = '<div class="ef-item-key">' + u.escape(this.schema['displayName']) + '</div>';
         var container = document.createElement('div');
         lib.addClass(container, 'ef-item-value');
         this.main.appendChild(container);
 
-        var data = {
+        var Constructor = this.getControlClass('SELECTBOX');
+        this.control = new Constructor({
             container: container,
-            multiline: !!this.schema['multiline']
-        };
-        if (this.schema['tip']) {
-            data['placeholder'] = this.schema['tip'];
-        }
-        if (this.schema['defaultValue']) {
-            data['defaultValue'] = this.schema['defaultValue'];
-        }
-        if (this.schema['extraAttr'] && this.schema['extraAttr']['readOnly']) {
-            data['readOnly'] = this.schema['extraAttr']['readOnly'];
-        }
-
-        var Constructor = this.getControlClass('TEXTBOX');
-        this.control = new Constructor(data);
+            datasource: this.schema['enumValues'],
+            selectedIndex: this.selectedIndex || 0
+        });
         this.control.render();
     };
 
     /**
      * 获取元素值
      */
-    StringElement.prototype.getValue = function() {
+    EnumElement.prototype.getValue = function() {
         return this.control.getValue();
     };
 
     /**
      * 设置元素值
      */
-    StringElement.prototype.setValue = function(value) {
+    EnumElement.prototype.setValue = function(value) {
         this.control.setValue(value);
     };
 
-    lib.inherits(StringElement, BaseElement);
+    lib.inherits(EnumElement, BaseElement);
 
-    return StringElement;
+    return EnumElement;
 });
 
 
