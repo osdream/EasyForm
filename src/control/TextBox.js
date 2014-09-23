@@ -1,11 +1,11 @@
 /***************************************************************************
- * 
+ *
  * Copyright (c) 2014 Baidu.com, Inc. All Rights Reserved
  * $Id$
- * 
+ *
  **************************************************************************/
- 
- 
+
+
 /*
  * path:    src/control/TextBox.js
  * desc:    文本框控件
@@ -34,7 +34,7 @@ define(function(require) {
          *
          * @type {Array.<string>}
          */
-        this.optionKeys = ['placeholder', 'multiline'];
+        this.optionKeys = ['placeholder', 'multiline', 'defaultValue', 'readOnly'];
 
         BaseControl.apply(this, arguments);
     }
@@ -48,6 +48,9 @@ define(function(require) {
             mode: (this.multiline ? 'textarea' : 'text'),
             placeholder: this.placeholder
         });
+        if (this.defaultValue) {
+            this.control.setValue(this.defaultValue);
+        }
     };
 
     /**
@@ -56,6 +59,10 @@ define(function(require) {
     TextBox.prototype.render = function() {
         // 渲染控件到容器
         this.control.appendTo(this.container);
+
+        if (this.readOnly) {
+            this.control.main.getElementsByTagName('input')[0].readOnly = true;
+        }
 
         // 输入框值变化事件
         var that = this;

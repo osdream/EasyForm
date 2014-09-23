@@ -1,11 +1,11 @@
 /***************************************************************************
- * 
+ *
  * Copyright (c) 2014 Baidu.com, Inc. All Rights Reserved
  * $Id$
- * 
+ *
  **************************************************************************/
- 
- 
+
+
 /*
  * path:    src/EasyForm.js
  * desc:    EasyForm constructor
@@ -203,12 +203,16 @@ define(function(require) {
     // 注册预定义元素
     var StringElement = require('./element/StringElement');
     var ObjectElement = require('./element/ObjectElement');
+    var EnumElement   = require('./element/EnumElement');
     EasyForm.registerElement('STRING', StringElement);
     EasyForm.registerElement('OBJECT', ObjectElement);
+    EasyForm.registerElement('ENUM', EnumElement);
 
     // 注册预定义控件
     var TextBox = require('./control/TextBox');
+    var SelectBox = require('./control/SelectBox');
     EasyForm.registerControl('TEXTBOX', TextBox);
+    EasyForm.registerControl('SELECTBOX', SelectBox);
 
     return EasyForm;
 });
